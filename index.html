@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- ═══════════════════════════════════════════════════════
+       FitTrack — Application PWA de suivi sportif
+       Technologies : HTML5, CSS3, JavaScript ES6+ (Vanilla)
+       Aucune dépendance externe
+  ════════════════════════════════════════════════════════ -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Application de suivi d'objectifs sportifs personnalisés — PWA" />
+
+  <!-- ── Méta PWA & Mobile ────────────────────────────────── -->
+  <meta name="theme-color" content="#1a1a2e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FitTrack" />
+
+  <!-- ── Open Graph (partage social) ──────────────────────── -->
+  <meta property="og:title" content="FitTrack — Suivi Sportif" />
+  <meta property="og:description" content="Programme sportif personnalisé sur 4 semaines." />
+  <meta property="og:type" content="website" />
+
+  <!-- ── Manifest PWA ─────────────────────────────────────── -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- ── Police Inter via CSS (auto-hébergée en fallback) ─── -->
+  <!-- On charge depuis Google Fonts pour la qualité typographique.
+       L'app fonctionne hors-ligne grâce au SW qui met en cache.
+       En production, envisager de self-hoster les fonts. -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none'%3E%3Cg stroke='%23399390' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h16'/%3E%3Cpath d='M10 14v12' stroke-width='4'/%3E%3Cpath d='M14 23l4-4 4 3 6-7' stroke='%23ffffff'/%3E%3Cpath d='M30 14v12' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)" crossorigin />
+  <link rel="preconnect" href="[fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin />
+  <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap)" rel="stylesheet" />
+
+  <!-- ── Feuille de styles ─────────────────────────────────── -->
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+
+<body>
+  <div class="theme-toggle-container">
+    <button id="theme-toggle" aria-label="Changer de thème">
+  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+  </svg>
+  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+  </svg>
+</button>
+</div>
+  <!-- Conteneur principal de l'app -->
+  <div class="app-container">
+
+    <!-- ══════════════════════════════════════════════
+         HEADER — Affiché sur tous les écrans
+    ═══════════════════════════════════════════════ -->
+    <header class="app-header">
+      <div class="logo-container">
+  <span class="logo-text">FitTrack</span>
+</div>
+      
+      <!-- Bouton visible uniquement sur le dashboard -->
+      <button class="header-action" id="btnEditProfile" style="display: none;"
+              aria-label="Modifier le profil">
+        Modifier le profil
+      </button>
+    </header>
+
+    <!-- ══════════════════════════════════════════════
+         ÉCRAN 1 — Configuration du profil utilisateur
+    ═══════════════════════════════════════════════ -->
+    <main id="screen-profile" class="screen" role="main" aria-label="Configuration du profil">
+
+      <!-- En-tête de l'écran -->
+      <div>
+        <div class="hero-badge" aria-label="Programme sur 4 semaines">
+          ✦ Programme personnalisé 4 semaines
+        </div>
+        <h1 class="screen-title" style="margin-top: 16px;">
+          Créons ton<br />programme.
+        </h1>
+        <p class="screen-subtitle">
+          Quelques informations suffiront pour générer<br />
+          un plan sportif taillé sur mesure.
+        </p>
+      </div>
+
+      <!-- Carte formulaire -->
+      <div class="card">
+        <p class="section-label">Tes données physiques</p>
+
+        <!-- Champ Masse -->
+        <div class="form-group">
+          <label for="inputWeight">Masse corporelle</label>
+          <input
+            type="number"
+            id="inputWeight"
+            name="weight"
+            placeholder="75"
+            min="30"
+            max="250"
+            step="0.5"
+            inputmode="decimal"
+            aria-describedby="weightHint"
+          />
+          <p class="field-hint" id="weightHint">En kilogrammes (ex: 75)</p>
+        </div>
+
+        <!-- Champ Taille -->
+        <div class="form-group">
+          <label for="inputHeight">Taille</label>
+          <input
+            type="number"
+            id="inputHeight"
+            name="height"
+            placeholder="178"
+            min="100"
+            max="250"
+            step="1"
+            inputmode="numeric"
+            aria-describedby="heightHint"
+          />
+          <p class="field-hint" id="heightHint">En centimètres (ex: 178)</p>
+        </div>
+      </div>
+
+      <!-- Sélection de l'objectif (Radio Cards) -->
+  <div>
+  <p class="section-label">Ton objectif principal</p>
+  <div class="goal-grid" role="radiogroup" aria-label="Sélectionner un objectif">
+    
+    <label class="goal-option">
+      <input type="radio" name="goal" value="weightloss" />
+      <div class="goal-card">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+</svg>
+        <span class="goal-name">Perte de poids</span>
+        <span class="goal-desc">Déficit calorique, HIIT, cardio</span>
+      </div>
+    </label>
+  
+  
+  <label class="goal-option">
+  <input type="radio" name="goal" value="leanmass" />
+  <div class="goal-card">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dumbbell-icon lucide-dumbbell"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/><path d="m2.5 21.5 1.4-1.4"/><path d="m20.1 3.9 1.4-1.4"/><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/><path d="m9.6 14.4 4.8-4.8"/></svg>
+    <span class="goal-name">Masse sèche</span>
+    <span class="goal-desc">Hypertrophie, charges progressives</span>
+  </div>
+</label>
+
+<label class="goal-option">
+  <input type="radio" name="goal" value="strength" />
+  <div class="goal-card">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+</svg>
+    <span class="goal-name">Force & Hypertrophie</span>
+    <span class="goal-desc">Squat, deadlift, bench — 85%+ 1RM</span>
+  </div>
+</label>
+
+<label class="goal-option">
+  <input type="radio" name="goal" value="endurance" />
+  <div class="goal-card">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-biceps-flexed-icon lucide-biceps-flexed"><path d="M12.409 13.017A5 5 0 0 1 22 15c0 3.866-4 7-9 7-4.077 0-8.153-.82-10.371-2.462-.426-.316-.631-.832-.62-1.362C2.118 12.723 2.627 2 10 2a3 3 0 0 1 3 3 2 2 0 0 1-2 2c-1.105 0-1.64-.444-2-1"/><path d="M15 14a5 5 0 0 0-7.584 2"/><path d="M9.964 6.825C8.019 7.977 9.5 13 8 15"/></svg>
+    <span class="goal-name">Endurance & Callisthénie</span>
+    <span class="goal-desc">Course, skills, poids du corps</span>
+  </div>
+</label>
+</div>
+      </div>
+
+      <!-- Bouton de validation -->
+      <button class="btn-primary" id="btnSubmitProfile" type="button">
+        Générer mon programme →
+      </button>
+
+    </main>
+
+
+    <!-- ══════════════════════════════════════════════
+         ÉCRAN 2 — Dashboard de suivi
+    ═══════════════════════════════════════════════ -->
+    <section id="screen-dashboard" class="screen" aria-label="Tableau de bord de suivi">
+
+      <!-- Carte de progression (anneau circulaire) -->
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="progress-ring-wrapper">
+
+          <!-- Anneau SVG de progression -->
+          <div class="ring-container" role="img" aria-label="Anneau de progression globale">
+            <svg class="progress-ring" width="90" height="90" viewBox="0 0 90 90"
+                 aria-hidden="true">
+              <!-- Cercle de fond -->
+              <circle class="ring-bg" cx="45" cy="45" r="40" />
+              <!-- Cercle de remplissage (animé par JS) -->
+              <circle class="ring-fill" cx="45" cy="45" r="40" />
+            </svg>
+            <div class="ring-center">
+              <span class="ring-percent">0%</span>
+              <span class="ring-label">Complété</span>
+            </div>
+          </div>
+          <div class="progress-status">
+  <div class="status-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+      <polyline points="16 7 22 7 22 13" />
+    </svg>
+  </div>
+  <div class="status-details">
+  </div>
+</div>
+          <div class="progress-info">
+            <p class="progress-title">Ta progression</p>
+            <p class="progress-sub">
+              Chaque séance cochée fait avancer l'anneau.<br />
+              La régularité est ta meilleure alliée.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation par onglets -->
+      <nav class="tab-nav" role="tablist" aria-label="Navigation du tableau de bord">
+        <button class="tab-btn active" role="tab" data-tab="tab-today"
+                aria-controls="tab-today" aria-selected="true">
+          
+          Aujourd'hui
+        </button>
+        <button class="tab-btn" role="tab" data-tab="tab-program"
+                aria-controls="tab-program" aria-selected="false">
+          Programme
+        </button>
+        <button class="tab-btn" role="tab" data-tab="tab-profile"
+                aria-controls="tab-profile" aria-selected="false">
+          Profil
+        </button>
+      </nav>
+
+      <!-- ── Onglet : Checklist du jour ────────────────────── -->
+      <div id="tab-today" class="tab-pane active" role="tabpanel" aria-labelledby="tab-today">
+        <!-- Contenu injecté par JS (renderChecklist) -->
+        <p style="color: var(--text-muted); font-size: 0.875rem;">Chargement...</p>
+      </div>
+
+      <!-- ── Onglet : Programme complet ────────────────────── -->
+      <div id="tab-program" class="tab-pane" role="tabpanel" aria-labelledby="tab-program">
+        <!-- Contenu injecté par JS (renderProgram) -->
+      </div>
+
+      <!-- ── Onglet : Profil & Stats ───────────────────────── -->
+      <div id="tab-profile" class="tab-pane" role="tabpanel" aria-labelledby="tab-profile">
+        <!-- Contenu injecté par JS (buildDashboard) -->
+      </div>
+
+    </section>
+
+  </div><!-- /.app-container -->
+
+
+  <!-- ══════════════════════════════════════════════
+       ÉLÉMENTS GLOBAUX (hors flux normal)
+  ═══════════════════════════════════════════════ -->
+
+  <!-- Toast de notification (feedback utilisateur) -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Conteneur des confettis de célébration -->
+  <div id="confettiContainer" class="confetti-container" aria-hidden="true"></div>
+
+
+  <!-- ── Script principal ─────────────────────────────────── -->
+  <script src="script.js"></script>
+
+  <!-- Script inline : gestion du bouton header selon l'écran actif -->
+  <script>
+    // Observateur pour afficher/masquer le bouton "Modifier le profil"
+    // uniquement sur le dashboard
+    const observer = new MutationObserver(() => {
+      const dashboardActive = document.getElementById('screen-dashboard')
+                                      ?.classList.contains('active');
+      const editBtn = document.getElementById('btnEditProfile');
+      if (editBtn) {
+        editBtn.style.display = dashboardActive ? 'block' : 'none';
+      }
+    });
+
+    // On observe les changements de classe sur les deux écrans
+    ['screen-profile', 'screen-dashboard'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+    });
+  </script>
+
+</body>
+</html>

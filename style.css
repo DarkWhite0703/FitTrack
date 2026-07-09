@@ -1,0 +1,981 @@
+/* ============================================================
+   FitTrack — Feuille de styles principale
+   Palette : Blanc cassé #f8f8f6 | Texte #111111 | Accent #1a1a2e (bleu nuit)
+   ============================================================ */
+
+/* ─── Variables CSS ──────────────────────────────────────────────────────── */
+:root {
+  --bg:           #f8f8f6;
+  --bg-card:      #ffffff;
+  --text-primary: #111111;
+  --text-muted:   #888888;
+  --accent:       #1a1a2e;
+  --accent-soft:  #2d2d4e;
+  --accent-glow:  rgba(26, 26, 46, 0.08);
+  --success:      #2ecc71;
+  --border:       #e8e8e4;
+  --radius:       16px;
+  --radius-sm:    8px;
+  --shadow:       0 2px 24px rgba(0,0,0,0.06);
+  --shadow-lg:    0 8px 40px rgba(0,0,0,0.10);
+  --transition:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font:         'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ─── Reset & Base ───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg);
+  color: var(--text-primary);
+  min-height: 100dvh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout Principal ───────────────────────────────────────────────────── */
+.app-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+.app-header {
+  padding: 32px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--accent);
+}
+
+.header-action {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font);
+}
+
+.header-action:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ─── Écrans (Screens) ───────────────────────────────────────────────────── */
+.screen {
+  display: none;
+  flex-direction: column;
+  gap: 32px; /* 👈 Augmente l'espace global entre les grands groupes (ex: 32px ou 36px) */
+  padding-bottom: 48px;
+  animation: screenFadeIn 0.4s ease forwards;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes screenFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Typographie ────────────────────────────────────────────────────────── */
+.screen-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.screen-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 12px;    /* 👈 Ajoute un espace AU-DESSUS du titre de la section */
+  margin-bottom: 12px; /* Garde l'espace en DESSOUS du titre, avant la carte */
+}
+.card + .card, 
+.card + .checklist-section,
+.checklist-section + .card {
+  margin-top: 16px; /* 👈 Ajuste la distance si tes blocs se superposent */
+}
+/* ─── Card ───────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+/* ─── Formulaire ─────────────────────────────────────────────────────────── */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 0;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: var(--font);
+  transition: var(--transition);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: '↓';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  font-size: 0.9rem;
+}
+
+/* Hint sous les champs */
+.field-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+/* ─── Boutons ────────────────────────────────────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(26, 26, 46, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Effet ripple sur le bouton */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-primary:active::after {
+  opacity: 1;
+}
+
+.btn-secondary {
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background: var(--accent-glow);
+}
+
+/* ─── Écran Onboarding (Screen 1) ────────────────────────────────────────── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-glow);
+  border: 1px solid rgba(26, 26, 46, 0.12);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  width: fit-content;
+}
+
+/* ─── Objectif Selector (Cards Radio) ───────────────────────────────────── */
+.goal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.goal-option {
+  position: relative;
+}
+
+.goal-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+  background: var(--bg);
+}
+
+.goal-card:hover {
+  border-color: var(--accent);
+  background: #fff;
+}
+
+/* --- ÉTAT SÉLECTIONNÉ (S'adapte automatiquement aux deux modes) --- */
+.goal-option input:checked + .goal-card {
+    background-color: var(--accent-glow); /* 👈 On utilise la variable dynamique à la place de la couleur fixe */
+    border-color: var(--accent);
+}
+
+/* --- AJUSTEMENT DES COULEURS DE TEXTE ET D'ICÔNE --- */
+.goal-option input:checked + .goal-card .goal-name {
+    color: var(--accent);
+    font-weight: 700; /* Met le texte en gras quand il est sélectionné */
+}
+
+.goal-option input:checked + .goal-card .goal-icon {
+    background-color: var(--accent);
+    color: #ffffff; /* L'icône SVG devient blanche sur son fond d'accentuation */
+}
+
+.goal-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.goal-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.goal-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ─── Profil résumé card ─────────────────────────────────────────────────── */
+.profile-stats {
+  display: flex;
+  gap: 0;
+}
+
+.stat-block {
+  flex: 1;
+  text-align: center;
+  padding: 16px;
+}
+
+.stat-block + .stat-block {
+  border-left: 1px solid var(--border);
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 2px;
+}
+
+/* ─── IMC Badge ──────────────────────────────────────────────────────────── */
+.imc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid;
+}
+
+.imc-badge.normal  { background: #eafaf1; color: #1a7a40; border-color: #a9dfbf; }
+.imc-badge.light   { background: #fef9e7; color: #7d6608; border-color: #f9e79f; }
+.imc-badge.overweight { background: #fef5e7; color: #935116; border-color: #fad7a0; }
+.imc-badge.obese   { background: #fdedec; color: #922b21; border-color: #f5b7b1; }
+
+/* ─── Programme (Semaines & Jours) ──────────────────────────────────────── */
+.week-section {
+  margin-bottom: 28px;
+}
+
+.week-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.week-number {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.week-theme {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.week-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Jours d'entraînement */
+.day-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: var(--bg-card); /* 👈 Remplacé #fff par var(--bg-card) */
+  transition: var(--transition);
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.day-header:hover {
+  background: var(--bg);
+}
+
+.day-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.day-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.day-toggle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+}
+
+.day-card.open .day-toggle {
+  transform: rotate(180deg);
+}
+
+.day-body {
+  display: none;
+  padding: 0 18px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.day-card.open .day-body {
+  display: block;
+}
+
+/* Table exercices */
+.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.exercise-table th {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.exercise-table td {
+  font-size: 0.85rem;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.exercise-table tr:last-child td {
+  border-bottom: none;
+}
+
+.exercise-name {
+  font-weight: 600;
+}
+
+.exercise-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── Dashboard de suivi ─────────────────────────────────────────────────── */
+
+/* Progression globale avec anneau circulaire */
+.progress-ring-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 24px;
+}
+
+.ring-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.ring-bg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 8;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 251.2;  /* 2π × 40 (rayon) */
+  stroke-dashoffset: 251.2; /* Commence à 0% */
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-percent {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.ring-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progress-info {
+  flex: 1;
+}
+
+.progress-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.progress-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Checklist des séances */
+.checklist-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--bg-card); /* 👈 Remplacé #fff par var(--bg-card) */
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.checklist-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(26,26,46,0.06);
+}
+
+.checklist-item.done {
+  background: var(--bg);
+  border-color: var(--success);
+  opacity: 0.75;
+}
+
+/* Checkbox custom */
+.custom-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  background: #fff;
+}
+
+.checklist-item.done .custom-checkbox {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+.checkmark {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.checklist-item.done .checkmark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.checklist-text {
+  flex: 1;
+}
+
+.checklist-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.checklist-item.done .checklist-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.checklist-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── Célébration / Micro-animation de succès ─────────────────────────────  */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Toast de succès */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  z-index: 999;
+  box-shadow: 0 8px 32px rgba(26,26,46,0.3);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── Barre de progression hebdomadaire ──────────────────────────────────── */
+.week-progress-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.week-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.week-bar-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.week-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.week-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 100px;
+  width: 0%;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.week-bar-count {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ─── Navigation onglets du Dashboard ───────────────────────────────────── */
+.tab-nav {
+  display: flex;
+  gap: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font);
+}
+
+.tab-btn.active {
+  background: var(--bg-card);
+  color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+  animation: screenFadeIn 0.25s ease forwards;
+}
+
+/* ─── Badge de semaine actuelle ──────────────────────────────────────────── */
+.current-week-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-glow);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* ─── Responsive Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .screen-title {
+    font-size: 1.6rem;
+  }
+
+  .goal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .progress-ring-wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .exercise-table th:nth-child(4),
+  .exercise-table td:nth-child(4) {
+    display: none; /* Masque la colonne Repos sur mobile */
+  }
+}
+
+/* ─── Accessibilité ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible pour navigation clavier */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   Gestion du Mode Sombre (Dark Mode)
+   ============================================================ */
+
+[data-theme="dark"] {
+  /* On redéfinit STRICTEMENT les variables initiales pour le mode sombre */
+  --bg:           #000000; /* Fond très sombre mais doux pour les yeux */
+  --bg-card:      #121212; /* Cartes légèrement plus claires que le fond */
+  --text-primary: #ffffff; /* Texte principal en blanc cassé */
+  --text-muted:   #8a8a93; /* Texte secondaire grisé pour garder le contraste */
+  
+  /* Accentuation adoucie pour le mode sombre (évite de fatiguer les yeux) */
+  --accent:       #399390; 
+  --accent-soft:  #2c7573;
+  --accent-glow:  rgba(57, 147, 144, 0.15);
+  
+  --border:       #2d2d32; /* Bordures sombres discrètes */
+  --shadow:       0 4px 24px rgba(0,0,0,0.3);
+  --shadow-lg:    0 8px 40px rgba(0,0,0,0.4);
+}
+
+/* --- TRANSITION GLOBALE (Appliquée sur le body et les éléments clés) --- */
+body, .card, input, select, .goal-card, .day-card, .checklist-item, .tab-btn {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- STYLE DU BOUTON THEME TOGGLE --- */
+.theme-toggle-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 0;
+    max-width: 680px; /* Aligné sur la largeur de ton .app-container */
+    margin: 0 auto;
+}
+
+#theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+#theme-toggle:hover {
+    background-color: var(--accent-glow);
+    border-color: var(--accent);
+}
+
+/* Gestion de l'affichage des icônes selon le mode */
+#theme-toggle .icon-sun { display: none; }
+#theme-toggle .icon-moon { display: block; }
+
+[data-theme="dark"] #theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] #theme-toggle .icon-moon { display: none; }
+
+.section-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espace entre le titre (ex: "Mon profil") et sa carte */
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  /* Conserve tes autres règles existantes comme la couleur de fond ou le texte */
+}
+.logo-text {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-style: italic; /* L'italique en Times New Roman est particulièrement esthétique pour un logo */
+  letter-spacing: 0.5px; /* Un léger espacement positif convient mieux aux polices serif */
+  color: var(--text-primary);
+}
