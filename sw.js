@@ -10,8 +10,8 @@ const CACHE_NAME = 'fittrack-v1.0.0';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
-  '/styles.css',
-  '/app.js',
+  '/style.css',
+  '/script.js',
   '/manifest.json'
 ];
 
