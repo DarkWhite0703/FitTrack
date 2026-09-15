@@ -149,7 +149,7 @@ body {
 .card + .card, 
 .card + .checklist-section,
 .checklist-section + .card {
-  margin-top: 16px; /* 👈 Ajuste la distance si tes blocs se superposent */
+  margin-top: 16px; /* 👈 Ajuste la distance si les blocs se superposent */
 }
 /* ─── Card ───────────────────────────────────────────────────────────────── */
 .card {
@@ -456,7 +456,7 @@ select:focus {
   border-radius: var(--radius-sm);
   overflow: hidden;
   margin-bottom: 10px;
-  background: var(--bg-card); /* 👈 Remplacé #fff par var(--bg-card) */
+  background: var(--bg-card); 
   transition: var(--transition);
 }
 
@@ -931,7 +931,7 @@ body, .card, input, select, .goal-card, .day-card, .checklist-item, .tab-btn {
     display: flex;
     justify-content: flex-end;
     padding: 15px 0;
-    max-width: 680px; /* Aligné sur la largeur de ton .app-container */
+    max-width: 648px; /* Aligné sur la largeur de ton .app-container */
     margin: 0 auto;
 }
 
