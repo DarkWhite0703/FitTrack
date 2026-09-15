@@ -931,7 +931,7 @@ body, .card, input, select, .goal-card, .day-card, .checklist-item, .tab-btn {
     display: flex;
     justify-content: flex-end;
     padding: 15px 0;
-    max-width: 648px; /* Aligné sur la largeur de ton .app-container */
+    max-width: 630px; /* Aligné sur la largeur de ton .app-container */
     margin: 0 auto;
 }
 
